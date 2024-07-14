@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kavivanar&display=swap" rel="stylesheet">
+  <title>Thirukkural App</title>
+</head>
+<style>
+    body {
+        font-family: "Kavivanar", cursive;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f0f0f0;
+    }
+
+    .container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    h1 {
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .kural-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .kural {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .explanation {
+        margin-bottom: 15px;
+        line-height: 1.6;
+    }
+
+    .button-container {
+        margin-top: 20px;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    footer {
+      background-color: #f0f0f0;
+      text-align: center;
+      padding: 1rem 0;
+      position: fixed; 
+      bottom: 0;
+      width: 100%;
+    }
+</style>
+<body>
+  <div class="container">
+
+    <h1>திருக்குறள்</h1> 
+    <form action="/kural" method="POST">
+        <label for="kuralNumber">Enter Kural Number:</label>
+        <input type="number" id="kuralNumber" name="kuralNumber" min="1" max="1330" required>
+        <button type="submit">Go</button>
+      </form>
+
+      <% if (typeof error !== 'undefined' && error === 'invalid') { %>
+        <p style="color: red;">Invalid kural number. Please enter a number between 1 and 1330.</p>
+      <% } %>
+    <div class="kural-container" id="kuralContainer">
+    <% if (typeof kural !== 'undefined') { %>
+        
+      <p><strong>குறள் <%= kural.number %>:</strong> <%= kural.line1 %></p>
+      <p><%= kural.line2 %></p>
+      <p><strong>விளக்கம்:</strong> <%= kural.urai1 %></p>
+      <p><strong>Explanation:</strong><%=kural.translation %></p>
+    <% } %>
+    <form action="/random" method="GET"> <button type="submit">Random Kural</button>
+    </form>
+    <br>
+    <form action="/next" method="POST">
+        <button type="submit">Next Kural</button>
+    </form>
+    </div>
+  </div> 
+
+  <footer>
+    <p>Created by Sethu</p>
+  </footer>
+</body>
+
+</html>
